@@ -1,0 +1,1170 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+/* CSS variables for light & dark themes */
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-title: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains+Mono', 'Fira Code', monospace;
+
+  /* Theme: Light */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --border-color: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  
+  --accent-primary: #dc2626;
+  --accent-primary-hover: #b91c1c;
+  --accent-secondary: #ef4444;
+  --accent-soft: rgba(220, 38, 38, 0.08);
+  
+  --code-bg: #f1f5f9;
+  --code-border: #cbd5e1;
+  --code-text: #dc2626;
+  
+  /* Alert banners */
+  --alert-note-border: #dc2626;
+  --alert-note-bg: rgba(220, 38, 38, 0.05);
+  --alert-tip-border: #10b981;
+  --alert-tip-bg: rgba(16, 185, 129, 0.05);
+  --alert-important-border: #8b5cf6;
+  --alert-important-bg: rgba(139, 92, 246, 0.05);
+  --alert-warning-border: #f59e0b;
+  --alert-warning-bg: rgba(245, 158, 11, 0.05);
+  --alert-caution-border: #ef4444;
+  --alert-caution-bg: rgba(239, 68, 68, 0.05);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  --transition-speed: 0.25s;
+}
+
+[data-theme="dark"] {
+  /* Theme: Dark (Aligned with Costeo Dashboard) */
+  --bg-primary: #121212;
+  --bg-secondary: #090909;
+  --bg-tertiary: #181818;
+  --border-color: #222222;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --text-muted: #525252;
+  
+  --accent-primary: #dc2626;
+  --accent-primary-hover: #b91c1c;
+  --accent-secondary: #ef4444;
+  --accent-soft: rgba(220, 38, 38, 0.1);
+  
+  --code-bg: #181818;
+  --code-border: #222222;
+  --code-text: #e5e7eb;
+  
+  /* Alert banners in dark mode */
+  --alert-note-border: #dc2626;
+  --alert-note-bg: rgba(220, 38, 38, 0.08);
+  --alert-tip-border: #34d399;
+  --alert-tip-bg: rgba(52, 211, 153, 0.08);
+  --alert-important-border: #a78bfa;
+  --alert-important-bg: rgba(167, 139, 250, 0.08);
+  --alert-warning-border: #fbbf24;
+  --alert-warning-bg: rgba(251, 191, 36, 0.08);
+  --alert-caution-border: #f87171;
+  --alert-caution-bg: rgba(248, 113, 113, 0.08);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+}
+
+/* Reset and general styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Layout */
+.app-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Header Greeting styles */
+.header-greeting {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.greeting-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: var(--font-title);
+}
+
+.greeting-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting-title {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.greeting-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Header date styles */
+.header-date {
+  display: flex;
+  align-items: center;
+  background-color: #161616;
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  margin-right: 0.25rem;
+}
+
+.costeo-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.costeo-logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+}
+
+.costeo-logo-text {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.costeo-logo-subtext {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Sidebar Brand and Headers */
+.sidebar-brand {
+  padding: 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.sidebar-header-title {
+  padding: 1.25rem 1.25rem 0.5rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sidebar-header-title h2 {
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform var(--transition-speed) ease, width var(--transition-speed) ease;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  border-right: none;
+}
+
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h2 {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.preset-list {
+  list-style: none;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.preset-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid transparent;
+  background: none;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preset-item:hover {
+  background-color: var(--bg-tertiary);
+  color: #ffffff;
+}
+
+.preset-item.active {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+}
+
+.preset-item.active:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+.preset-item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Panel Containers */
+.editor-panel, .preview-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  background-color: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.editor-panel {
+  border-right: 1px solid var(--border-color);
+}
+
+.panel-header {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Editor Input */
+.markdown-textarea {
+  flex: 1;
+  width: 100%;
+  padding: 1.5rem;
+  border: none;
+  resize: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  outline: none;
+  overflow-y: auto;
+}
+
+/* Preview Area */
+.preview-content {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+}
+
+/* Buttons and Controls */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-primary-hover);
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-color);
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.btn-icon:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.btn-icon.active {
+  background-color: var(--accent-soft);
+  color: var(--accent-primary);
+  border-color: rgba(99, 102, 241, 0.1);
+}
+
+.btn-file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+/* Floating toggles */
+.toggle-sidebar-btn {
+  position: absolute;
+  left: 10px;
+  bottom: 20px;
+  z-index: 5;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Split Pane Toggle (Mobile-friendly) */
+.mobile-tabs {
+  display: none;
+  gap: 0.5rem;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ==========================================================================
+   MARKDOWN TYPOGRAPHY STYLING (Inside .preview-content)
+   ========================================================================== */
+
+.markdown-body {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  max-width: 850px;
+  margin: 0 auto;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 3.5rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Headings */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-family: var(--font-title);
+  color: var(--text-primary);
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.markdown-body h1 {
+  font-size: 2.2rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+.markdown-body h2 {
+  font-size: 1.65rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4rem;
+}
+
+.markdown-body h3 {
+  font-size: 1.35rem;
+}
+
+.markdown-body h4 {
+  font-size: 1.15rem;
+}
+
+/* Inline typography */
+.markdown-body p, 
+.markdown-body ul, 
+.markdown-body ol, 
+.markdown-body table, 
+.markdown-body pre {
+  margin-bottom: 1.25rem;
+}
+
+.markdown-body a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent-primary);
+  transition: color 0.15s ease;
+}
+
+.markdown-body a:hover {
+  color: var(--accent-primary-hover);
+  border-bottom-style: solid;
+}
+
+.markdown-body strong {
+  font-weight: 700;
+}
+
+.markdown-body em {
+  font-style: italic;
+}
+
+.markdown-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  padding: 0.2rem 0.4rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  color: var(--code-text);
+  border-radius: 4px;
+}
+
+/* Horizontal Rule */
+.markdown-body hr {
+  height: 2px;
+  background-color: var(--border-color);
+  border: none;
+  margin: 2rem 0;
+}
+
+/* Lists */
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.75rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.35rem;
+}
+
+.markdown-body li > ul,
+.markdown-body li > ol {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+/* Checkboxes (Task Lists) */
+.markdown-body ul.task-list {
+  list-style: none;
+  padding-left: 0.25rem;
+}
+
+.markdown-body .task-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.markdown-body .task-list-item input[type="checkbox"] {
+  margin-top: 0.35rem;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--accent-primary);
+}
+
+/* Blockquotes & Custom Alert Banners */
+.markdown-body blockquote {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-tertiary);
+  border-left: 4px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 1.25rem;
+}
+
+.markdown-body blockquote p {
+  margin-bottom: 0;
+}
+
+/* Alert boxes */
+.markdown-body .alert-box {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--alert-border);
+  background-color: var(--alert-bg);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.markdown-body .alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--alert-border);
+  font-family: var(--font-title);
+  letter-spacing: 0.025em;
+}
+
+.markdown-body .alert-content {
+  color: var(--text-primary);
+  font-size: 0.975rem;
+  line-height: 1.6;
+}
+
+.markdown-body .alert-content p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .alert-note {
+  --alert-border: var(--alert-note-border);
+  --alert-bg: var(--alert-note-bg);
+}
+
+.markdown-body .alert-tip {
+  --alert-border: var(--alert-tip-border);
+  --alert-bg: var(--alert-tip-bg);
+}
+
+.markdown-body .alert-important {
+  --alert-border: var(--alert-important-border);
+  --alert-bg: var(--alert-important-bg);
+}
+
+.markdown-body .alert-warning {
+  --alert-border: var(--alert-warning-border);
+  --alert-bg: var(--alert-warning-bg);
+}
+
+.markdown-body .alert-caution {
+  --alert-border: var(--alert-caution-border);
+  --alert-bg: var(--alert-caution-bg);
+}
+
+/* Fenced Code Blocks */
+.markdown-body pre {
+  padding: 1.25rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.markdown-body pre code {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: var(--code-text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Tables */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.markdown-body th,
+.markdown-body td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.markdown-body th {
+  background-color: var(--bg-tertiary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.markdown-body tr:nth-child(even) td {
+  background-color: var(--bg-primary);
+}
+
+/* ==========================================================================
+   PRINT LAYOUT - EXPORTING TO PDF STYLING
+   ========================================================================== */
+
+@media print {
+  /* Set document size and layout */
+  @page {
+    size: A4 portrait;
+    margin: 20mm;
+  }
+
+  /* Reset body styling for print */
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Force light colors on everything */
+  :root {
+    --bg-primary: #ffffff !important;
+    --bg-secondary: #ffffff !important;
+    --bg-tertiary: #f8fafc !important;
+    --border-color: #cbd5e1 !important;
+    --text-primary: #000000 !important;
+    --text-secondary: #334155 !important;
+    --text-muted: #64748b !important;
+    --code-bg: #f8fafc !important;
+    --code-border: #cbd5e1 !important;
+    --code-text: #000000 !important;
+    
+    /* Make alert colors slightly darker for print readability */
+    --alert-note-border: #3b82f6 !important;
+    --alert-note-bg: #eff6ff !important;
+    --alert-tip-border: #059669 !important;
+    --alert-tip-bg: #ecfdf5 !important;
+    --alert-important-border: #7c3aed !important;
+    --alert-important-bg: #f5f3ff !important;
+    --alert-warning-border: #d97706 !important;
+    --alert-warning-bg: #fffbeb !important;
+    --alert-caution-border: #dc2626 !important;
+    --alert-caution-bg: #fef2f2 !important;
+  }
+
+  /* Hide GUI elements */
+  .app-header,
+  .sidebar,
+  .editor-panel,
+  .panel-header,
+  .toggle-sidebar-btn,
+  .mobile-tabs {
+    display: none !important;
+  }
+
+  /* Expand preview to cover the whole printable page */
+  .app-container,
+  .workspace,
+  .preview-panel {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .preview-content {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Markdown body print settings */
+  .markdown-body {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Avoid splitting headings, code blocks, blockquotes across pages */
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .markdown-body h1 {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* Make sure first heading doesn't insert empty page */
+  .markdown-body > h1:first-of-type {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote,
+  .markdown-body .alert-box,
+  .markdown-body table,
+  .markdown-body tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .markdown-body code {
+    /* Keep code readable in black/white print */
+    word-break: break-all;
+  }
+
+  .markdown-body table {
+    word-break: normal;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN / ADAPTIVE LAYOUT
+   ========================================================================== */
+
+/* Responsive utilities */
+.mobile-menu-btn,
+.close-sidebar-btn,
+.mobile-pdf-btn,
+.sidebar-overlay {
+  display: none;
+}
+
+/* Ensure markdown image and table responsiveness */
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+.markdown-body table {
+  display: table;
+  width: 100%;
+}
+
+@media (max-width: 850px) {
+  .markdown-body table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 850px) {
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 25;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+    visibility: visible;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    visibility: hidden;
+    width: 280px;
+  }
+
+  .toggle-sidebar-btn {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+    margin-right: 0.25rem;
+  }
+
+  .close-sidebar-btn {
+    display: inline-flex;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(9, 13, 22, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 20;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .desktop-pdf-btn {
+    display: none !important;
+  }
+
+  .mobile-pdf-btn {
+    display: inline-flex;
+  }
+
+  .toolbar-divider {
+    display: none !important;
+  }
+
+  .header-date {
+    display: none !important;
+  }
+
+  .greeting-sub {
+    display: none !important;
+  }
+
+  /* Increase preset-item padding on mobile for better touch targets */
+  .preset-item {
+    padding: 0.8rem 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 0.5rem 1rem;
+    height: 60px;
+  }
+
+  .toolbar {
+    gap: 0.5rem;
+  }
+
+  .greeting-title {
+    font-size: 0.9rem;
+  }
+
+  .greeting-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+
+  .panel-header {
+    display: none; /* Hide header panel text */
+  }
+
+  .preview-content {
+    padding: 1.25rem;
+  }
+
+  .markdown-body {
+    padding: 1.5rem;
+    border-radius: 6px;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   PDF PRINT / EXPORT SPECIFIC STYLING
+   ========================================================================== */
+
+/* Remove card formatting, shadows, and outer borders for print canvas */
+.is-printing-pdf .markdown-body {
+  background-color: #ffffff !important;
+  color: #111111 !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+}
+
+.is-printing-pdf .markdown-body h1,
+.is-printing-pdf .markdown-body h2,
+.is-printing-pdf .markdown-body h3,
+.is-printing-pdf .markdown-body h4 {
+  color: #000000 !important;
+  border-bottom-color: #cbd5e1 !important;
+}
+
+.is-printing-pdf .markdown-body code {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #dc2626 !important;
+}
+
+.is-printing-pdf .markdown-body pre {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+.is-printing-pdf .markdown-body pre code {
+  color: #0f172a !important;
+}
+
+.is-printing-pdf .markdown-body table,
+.is-printing-pdf .markdown-body th,
+.is-printing-pdf .markdown-body td {
+  border-color: #cbd5e1 !important;
+}
+
+.is-printing-pdf .markdown-body th {
+  background-color: #f1f5f9 !important;
+  color: #000000 !important;
+}
+
+.is-printing-pdf .markdown-body tr:nth-child(even) td {
+  background-color: #f8fafc !important;
+}
+
+.is-printing-pdf .markdown-body a {
+  color: #dc2626 !important;
+  border-bottom-color: #dc2626 !important;
+}
+
+.is-printing-pdf .markdown-body blockquote {
+  background-color: #f8fafc !important;
+  border-left-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+/* Alert boxes inside PDF wrapper should use legible light-theme colors */
+.is-printing-pdf .markdown-body .alert-box {
+  background-color: var(--alert-bg) !important;
+  border-left-color: var(--alert-border) !important;
+}
+
+.is-printing-pdf .markdown-body .alert-note {
+  --alert-border: #dc2626 !important;
+  --alert-bg: #fef2f2 !important;
+}
+
+.is-printing-pdf .markdown-body .alert-tip {
+  --alert-border: #10b981 !important;
+  --alert-bg: #ecfdf5 !important;
+}
+
+.is-printing-pdf .markdown-body .alert-important {
+  --alert-border: #8b5cf6 !important;
+  --alert-bg: #f5f3ff !important;
+}
+
+.is-printing-pdf .markdown-body .alert-warning {
+  --alert-border: #f59e0b !important;
+  --alert-bg: #fffbeb !important;
+}
+
+.is-printing-pdf .markdown-body .alert-caution {
+  --alert-border: #ef4444 !important;
+  --alert-bg: #fef2f2 !important;
+}
+
+/* Page break rules for screen-to-canvas rendering during PDF export */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  page-break-after: avoid !important;
+  break-after: avoid !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.markdown-body h1 {
+  page-break-before: always !important;
+  break-before: page !important;
+}
+
+.markdown-body > h1:first-of-type {
+  page-break-before: avoid !important;
+  break-before: avoid !important;
+}
+
+.markdown-body p,
+.markdown-body li,
+.markdown-body pre,
+.markdown-body blockquote,
+.markdown-body .alert-box,
+.markdown-body table,
+.markdown-body tr {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
